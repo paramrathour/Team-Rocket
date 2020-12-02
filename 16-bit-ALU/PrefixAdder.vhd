@@ -204,6 +204,50 @@ a15 : andgate port map(Bus_in(15), enable, Bus_out(15));
 a16 : andgate port map(c_in, enable, c_out);
 end e8;
 
+-- block that calculates zero output (z)
+entity genZ is
+	port(SumBus: in bit_vector(15 downto 0);
+ 		  Carrybit: in bit;
+		  en: in bit;
+		  zero: out bit);
+end genZ;
+architecture e9 of genZ is
+component orgate
+port(a, b: in bit;
+     z: out bit);
+end component;
+component notgate
+port(a: in bit;
+     z: out bit);
+end component;
+component andgate
+port(a, b: in bit;
+     z: out bit);
+end component;
+signal x: bit_vector(16 downto 1);
+signal temp: bit;
+begin
+o1: orgate port map(SumBus(0), Sumbus(1), x(1));
+o2: orgate port map(x(1), Sumbus(2), x(2));
+o3: orgate port map(x(2), Sumbus(3), x(3));
+o4: orgate port map(x(3), Sumbus(4), x(4));
+o5: orgate port map(x(4), Sumbus(5), x(5));
+o6: orgate port map(x(5), Sumbus(6), x(6));
+o7: orgate port map(x(6), Sumbus(7), x(7));
+o8: orgate port map(x(7), Sumbus(8), x(8));
+o9: orgate port map(x(8), Sumbus(9), x(9));
+o10: orgate port map(x(9), Sumbus(10), x(10));
+o11: orgate port map(x(10), Sumbus(11), x(11));
+o12: orgate port map(x(11), Sumbus(12), x(12));
+o13: orgate port map(x(12), Sumbus(13), x(13));
+o14: orgate port map(x(13), Sumbus(14), x(14));
+o15: orgate port map(x(14), Sumbus(15), x(15));
+o16: orgate port map(x(15), Carrybit, x(16));
+
+n1: notgate port map(x(16), temp);
+a1: andgate port map(temp, en, zero);
+end e9;
+
 	
 -- block that implements a Kogge-Stone adder
 entity PrefixAdder is
@@ -211,11 +255,12 @@ entity PrefixAdder is
 		  BBus: in bit_vector(15 downto 0);  -- second number input port
 		  c0: in bit;                        -- initial carry (used for generating 2's compliment)
 		  e: in bit;                         -- enable port
-	     z: out bit;	                      -- output carry	  
+	     carry: out bit;	                   -- output carry
+		  Z: out bit;
 		  Sum: out bit_vector(15 downto 0)); -- sum vector output port
 end PrefixAdder;
 
-architecture e9 of PrefixAdder is
+architecture e10 of PrefixAdder is
 -- using gpGenerator, GPcell, carryGen blocks and xor gate as components
 component gpGenerator
 port(ABus: in bit_vector(15 downto 0);
@@ -242,13 +287,19 @@ component enabler
 		  Bus_out: out bit_vector(15 downto 0);
 		  c_out: out bit);
 end component;
+component genZ
+	port(SumBus: in bit_vector(15 downto 0);
+ 		  Carrybit: in bit;
+		  en: in bit;
+		  zero: out bit);
+end component;
 
 signal gBus, pBus: bit_vector(15 downto 0);    -- the g_is and p_is computed in pre-processing
 signal G1, P1: bit_vector(15 downto 1);        -- the Gs, Ps after one level of GPcells (prefix computation stage)
 signal G2, P2: bit_vector(15 downto 2);        -- the Gs, Ps after two levels of GPcells (prefix computation stage)
 signal G3, P3: bit_vector(15 downto 4);        -- the Gs, Ps after three levels of GPcells (prefix computation stage)
 signal G4, P4: bit_vector(15 downto 8);        -- the Gs, Ps after four levels of GPcells (prefix computation stage)
-signal C: bit_vector(16 downto 0);             -- The carry vector where C(16) is z 
+signal C: bit_vector(16 downto 0);             -- The carry vector where C(16) is Carry 
 signal S: bit_vector(15 downto 0);             -- The sum vector
 signal S_e: bit_vector(15 downto 0);           -- output after enabling
 
@@ -351,7 +402,8 @@ x14: xorgate port map(pBus(14), C(14), S(14));
 x15: xorgate port map(pBus(15), C(15), S(15));
 
 -- enabling the output
-E1: enabler port map(S, C(16), e, S_e, z);
+Z1: genZ port map(S, C(16), e, Z);
+E1: enabler port map(S, C(16), e, S_e, carry);
 
 -- connecting sum to the output
 sum(0) <= S_e(0);
@@ -371,19 +423,4 @@ sum(13) <= S_e(13);
 sum(14) <= S_e(14);
 sum(15) <= S_e(15);
  
-end e9;
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
+end e10;
