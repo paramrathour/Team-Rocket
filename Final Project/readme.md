@@ -1,1 +1,2 @@
 * Here is the final code for the ALU project with the different components brought together.
+* To run this on your own machines, create a project named ALU and download these files into the project folder.
