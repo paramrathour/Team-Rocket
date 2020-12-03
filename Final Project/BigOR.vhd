@@ -69,15 +69,3 @@ or4_15: or4gate port map(AddBus(15), SubBus(15), NandBus(15), XorBus(15), R_out(
 or4_16: or4gate port map(Z_a, Z_s, Z_nan, Z_xor, Z_out);
 
 end e3;
-
-
-
-
-
-
-
-
-
-
-
-

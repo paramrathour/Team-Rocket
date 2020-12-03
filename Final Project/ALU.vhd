@@ -74,20 +74,3 @@ xorer: xor_16 port map(A, B, x3, R_x, Z_x);
 
 finalor: BigOR port map(R_a, Z_a, C_a, R_s, Z_s, C_s, R_n, Z_n, R_x, Z_x, Z, C, R); 
 end arc;
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
