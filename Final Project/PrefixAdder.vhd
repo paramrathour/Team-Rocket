@@ -302,6 +302,7 @@ signal G4, P4: bit_vector(15 downto 8);        -- the Gs, Ps after four levels o
 signal C: bit_vector(16 downto 0);             -- The carry vector where C(16) is Carry 
 signal S: bit_vector(15 downto 0);             -- The sum vector
 signal S_e: bit_vector(15 downto 0);           -- output after enabling
+signal m1, m2: bit;
 
 begin
 -- computing g_is and p_is
@@ -401,9 +402,12 @@ x13: xorgate port map(pBus(13), C(13), S(13));
 x14: xorgate port map(pBus(14), C(14), S(14));
 x15: xorgate port map(pBus(15), C(15), S(15));
 
+x16: xorgate port map(ABus(15), BBus(15), m1);
+x17: xorgate port map(m1, C(16), m2);
 -- enabling the output
-Z1: genZ port map(S, C(16), e, Z);
-E1: enabler port map(S, C(16), e, S_e, carry);
+Z1: genZ port map(S, m2, e, Z);
+
+E1: enabler port map(S, m2, e, S_e, carry);
 
 -- connecting sum to the output
 sum(0) <= S_e(0);
@@ -424,3 +428,4 @@ sum(14) <= S_e(14);
 sum(15) <= S_e(15);
  
 end e10;
+
