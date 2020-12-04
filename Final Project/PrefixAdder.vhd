@@ -169,6 +169,8 @@ begin
 	o0: orgate port map(G_in, x, z);
 end e7;	  
 
+
+-- block that will implement enable
 entity enabler is
 	port(Bus_in: in bit_vector(15 downto 0);
 		  c_in: in bit;
@@ -177,7 +179,6 @@ entity enabler is
 		  c_out: out bit);
 end enabler;
 
--- block that will implement enable
 architecture e8 of enabler is
 -- using and gate as a component
 component andgate
@@ -404,9 +405,11 @@ x15: xorgate port map(pBus(15), C(15), S(15));
 
 x16: xorgate port map(ABus(15), BBus(15), m1);
 x17: xorgate port map(m1, C(16), m2);
--- enabling the output
+
+-- computing zero bit
 Z1: genZ port map(S, m2, e, Z);
 
+-- enabling the output
 E1: enabler port map(S, m2, e, S_e, carry);
 
 -- connecting sum to the output

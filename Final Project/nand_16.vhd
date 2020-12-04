@@ -1,37 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-----defining an and gate
---entity andgate is
---port(a, b: in bit;
---     c: out bit);
---end andgate;
---architecture e1 of andgate is
---begin
---c <= a and b;
---end e1;
---
-----defining a not gate
---entity notgate is
---port(a: in bit;
---     c: out bit);
---end notgate;
---architecture e2 of notgate is
---begin
---c <= not a;
---end e2;
---
-----defining an or gate
---entity orgate is
---port(a, b: in bit;
---     c: out bit);
---end orgate;
---architecture e3 of orgate is
---begin
---c <= a or b;
---end e3;
-
---defining a nand gate
+--defining a NAND gate
 entity nandgate is
 port(a, b: in bit;
      z: out bit);
@@ -41,7 +11,7 @@ begin
 z <= a nand b;
 end e4;
 
--- block that calculates zero output (z)
+-- block that computes zero output (z)
 entity genZ2 is
 	port(InBus: in bit_vector(15 downto 0);
 		  en: in bit;
@@ -84,7 +54,7 @@ a1: andgate port map(temp, en, zero);
 end e5;
 
 
-
+-- 16-bit input NAND block
 entity nand_16 is
 port(Abus: in bit_vector(15 downto 0);
 	  Bbus: in bit_vector(15 downto 0);
@@ -105,6 +75,7 @@ port(a, b: in bit;
 		z: out bit);
 end component;
 
+--block that computes zero output
 component genZ2
 	port(InBus: in bit_vector(15 downto 0);
 		  en: in bit;

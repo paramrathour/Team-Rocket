@@ -4,8 +4,7 @@ use ieee.std_logic_1164.all;
 library ieee;
 use ieee.std_logic_1164.all;
 
---constant one: bit_vector(15 downto 0) := "0000000000000001";
-
+--block that gives the 16-bit 1's complement of a number
 entity complement is
 	port(ABus: in bit_vector(15 downto 0);
 		  AnotBus: out bit_vector(15 downto 0));
@@ -36,7 +35,7 @@ begin
 	x15: notgate port map(ABus(15), AnotBus(15));
 end architecture;
 
-
+-- block that gives 17-bit signed difference of two 16-bit signed inputs
 entity subtractor is
 port(ABus: in bit_vector(15 downto 0);
 	  BBus: in bit_vector(15 downto 0);
@@ -48,7 +47,6 @@ port(ABus: in bit_vector(15 downto 0);
 end entity;
 
 architecture s of subtractor is
-
 component complement
 port(ABus: in bit_vector(15 downto 0);
 	  AnotBus: out bit_vector(15 downto 0));		
@@ -67,6 +65,10 @@ end component;
 signal A2Bus: bit_vector(15 downto 0);
 
 begin
+
+--computing 1's complement
 s: complement port map(BBus, A2Bus);
+
+--adding A and 1's compliment of B with initial carry set to '1'
 o: PrefixAdder port map(ABus, A2Bus, '1', e, carry, z, CBus);
 end s;

@@ -11,17 +11,6 @@ begin
 z <= (a or b or c or d);
 end e1;
 
-
----- defining an or gate
---entity orgate is
---port(a, b: in bit;
---     z: out bit);
---end orgate;
---architecture e2 of orgate is
---begin
---z <= a or b;
---end e2;
-
 --BigOR block
 entity BigOR is
 	port(AddBus: in bit_vector(15 downto 0);   --output from adder

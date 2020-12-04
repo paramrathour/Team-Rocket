@@ -1,114 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-----defining an and gate
---entity andgate is
---port(a, b: in bit;
---     c: out bit);
---end andgate;
---architecture e1 of andgate is
---begin
---c <= a and b;
---end e1;
---
-----defining a not gate
---entity notgate is
---port(a: in bit;
---     c: out bit);
---end notgate;
---architecture e2 of notgate is
---begin
---c <= not a;
---end e2;
---
-----defining an or gate
---entity orgate is
---port(a, b: in bit;
---     c: out bit);
---end orgate;
---architecture e3 of orgate is
---begin
---c <= a or b;
---end e3;
---
-----defining a xor gate
---entity xorgate is
---port(a, b: in bit;
---     c: out bit);
---end xorgate;
---architecture e4 of xorgate is
---component andgate
---port(a, b: in bit;
---     c: out bit);
---end component;
---component orgate
---port(a, b: in bit;
---     c: out bit);
---end component;
---component notgate
---port(a: in bit;
---     c: out bit);
---end component;
---signal nota,notb,s0,s1: bit;
---begin
---	-- a XOR b = a.b_bar + a_bar.b
---	u0 : notgate 
---		port map(a, nota);
---	u1 : notgate 
---		port map(b, notb);
---	u2 : andgate
---		port map(a, notb, s0);
---	u3 : andgate
---		 port map(b, nota, s1);
---	u4 : orgate
---		port map(s0, s1, c);
---end e4;
-
-
--- block that calculates zero output (z)
---entity genZ is
---	port(InBus: in bit_vector(15 downto 0);
---		  en: in bit;
---		  zero: out bit);
---end genZ;
---architecture e5 of genZ is
---component orgate
---port(a, b: in bit;
---     c: out bit);
---end component;
---component notgate
---port(a: in bit;
---     c: out bit);
---end component;
---component andgate
---port(a, b: in bit;
---     c: out bit);
---end component;
---signal x: bit_vector(15 downto 1);
---signal temp: bit;
---begin
---o1: orgate port map(InBus(0), Inbus(1), x(1));
---o2: orgate port map(x(1), Inbus(2), x(2));
---o3: orgate port map(x(2), Inbus(3), x(3));
---o4: orgate port map(x(3), Inbus(4), x(4));
---o5: orgate port map(x(4), Inbus(5), x(5));
---o6: orgate port map(x(5), Inbus(6), x(6));
---o7: orgate port map(x(6), Inbus(7), x(7));
---o8: orgate port map(x(7), Inbus(8), x(8));
---o9: orgate port map(x(8), Inbus(9), x(9));
---o10: orgate port map(x(9), Inbus(10), x(10));
---o11: orgate port map(x(10), Inbus(11), x(11));
---o12: orgate port map(x(11), Inbus(12), x(12));
---o13: orgate port map(x(12), Inbus(13), x(13));
---o14: orgate port map(x(13), Inbus(14), x(14));
---o15: orgate port map(x(14), Inbus(15), x(15));
---
---n1: notgate port map(x(15), temp);
---a1: andgate port map(temp, en, zero);
---end e5;
-
-
-
+--16-bit input XOR block
 entity xor_16 is
 port(Abus: in bit_vector(15 downto 0);
 	  Bbus: in bit_vector(15 downto 0);
@@ -128,7 +21,7 @@ component andgate
 port(a, b: in bit;
 		z: out bit);
 end component;
-
+-- block that computes zero bit
 component genZ2
 	port(InBus: in bit_vector(15 downto 0);
 		  en: in bit;
