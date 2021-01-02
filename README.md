@@ -17,10 +17,11 @@ Team Members: [Darin Jeff](https://github.com/DarinJeff), [Aanal Sonara](https:/
 </table>
 
 Inputs: 2 16-bit numbers in 2’s complement form (A, B), Control bits (S0, S1)
-	- Signed Addition (control input S1S0 = 00) 
-	- Subtraction (Control input S1S0 = 01) 
-	- NAND operation (control input S1S0 = 10) 
-	- XOR operation (control input S1S0 = 11)
+
+- Signed Addition (control input S1S0 = 00) 
+- Subtraction (Control input S1S0 = 01) 
+- NAND operation (control input S1S0 = 10) 
+- XOR operation (control input S1S0 = 11)
 
 Outputs: 1 16-bit number (R), 1 carry bit (C), 1 zero bit (Z)
 Note: For arithmetic operations; we used Kogge Stone Adder
