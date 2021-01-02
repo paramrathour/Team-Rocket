@@ -24,6 +24,7 @@ Inputs: 2 16-bit numbers in 2’s complement form (A, B), Control bits (S0, S1)
 - XOR operation (control input S1S0 = 11)
 
 Outputs: 1 16-bit number (R), 1 carry bit (C), 1 zero bit (Z)
+
 Note: For arithmetic operations; we used Kogge Stone Adder
 
 **The result is 17-bit in 2’s complement form** (with carry bit as MSB concatenated by result bits (R))
